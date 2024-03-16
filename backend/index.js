@@ -6,6 +6,7 @@ const sequelize = require('./db/index');
 const { initRelationships } = require('./db/relationships');
 const app = express();
 const router = require('./api/routes/index');
+const {dbConnect} = require('./db/mongoDB/index')
 
 const dbConection = async () => {
     try {
@@ -28,7 +29,8 @@ const expressListener = async () => {
         app.use('/api', router)
         await app.listen(process.env.PORT)
         console.log('>> Appsadero is running!')
-        await dbConection();
+        // await dbConection();
+        await dbConnect();
     } catch (error) {
         console.log(error)
         throw new Error('>> Connection error')
